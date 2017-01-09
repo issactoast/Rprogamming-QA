@@ -1,0 +1,52 @@
+---
+# title: "Vector declaration"
+author: "Issac Lee"
+date: "`r Sys.Date()`"
+output: markdowntemplates::skeleton
+---
+## How to define vector 2
+
+In this post, we continue to study the way to define vector in various methods.
+R has a special command, "**:**", which makes easy to describe the subcequent numbers. For example, we can define a vector manually by using **c()** command as before we studied.
+```{r}
+a <- c(1,2,3,4,5,6,7,8,9,10)
+a
+```
+Instead of doing this, we can use "**:**" command to define the same vector as follows:
+```{r}
+a <- c(1:10)
+a
+```
+Another way to define a vector is to use **seq()** command.
+```{r}
+a <- seq(1, 10, 1)
+a
+```
+Note that if you want to check the syntax of a function or command, you can simply type **?functionname** in the console. In this example, let us type the following in the console.
+```{r eval = FALSE}
+?seq
+```
+The command **seq()**, which stands for "sequence", has a pre-defined function in R whose syntax is as follows:
+```{r eval = FALSE}
+seq(from = Start, to = End, by = ((to - from)/(length.out - 1)),
+    length.out = NULL, along.with = NULL, ...)
+```
+Thus, when we type the command **seq(1, 10, 1)**, we ask R to generate a sequence starting from 1 to 10 by step 1.
+
+In function syntaxs, some aruguements- by, length.out, along.with in this example- are already filled with presetting value which means users can ommit the arguement when they use the function except they specifically want to change the value for them. For these reason, sine the third arguement of **seq()** function is already set as 1, we can get a same result without it:
+```{r}
+a <- seq(1,10)
+a
+```
+
+Sometimes, **rep()** command is also used for defining special vectors such as the zero vectors or one vectors:
+```{r}
+a <- rep(0, 5)
+a
+```
+You can already guess that "rep" stands for "repeat" so that the typed command **rep(0, 5)** means that repeating zero for five times.
+
+```{r bib, include=FALSE}
+# KEEP THIS AT THE END OF THE DOCUMENT TO GENERATE A LOCAL bib FILE FOR PKGS USED
+knitr::write_bib(sub("^package:", "", grep("package", search(), value=TRUE)), file='skeleton.bib')
+```

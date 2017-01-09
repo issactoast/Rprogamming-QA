@@ -1,0 +1,78 @@
+---
+# title: "Vector declaration"
+author: "Issac Lee"
+date: "`r Sys.Date()`"
+output: markdowntemplates::skeleton
+---
+## R에서의 벡터(Vector) 선언 방법
+
+R에서 벡터를 선언하는 방법은 명령서 'c()' 를 사용하여 선언하는 방법이다. 다음은 1,2,3을 원소로 하는 벡터를 선언하는 명령어이다. '선언'한다라는 용어가 생소한 독자는 '만든다'라는 의미로 받아들이면 되겠다.
+$$
+a=\left(\begin{array}{c}
+1\\
+2\\
+3
+\end{array}\right)
+$$
+```{r echo = TRUE}
+a <- c(1,2,3)
+a
+```
+
+명령서 'c()'에서 c가 무엇을 뜻하는지에 대하여 많은 사람들의 의견이 분분하다.
+어떤 사람들은 'combine'의 앞글자 혹은 'concatenate'의 앞글자를 의미한다는 주장을 하고 있지만(http://stackoverflow.com/questions/11488820/why-use-c-to-define-vector)
+개인적으로는 세로방향을 나타내는 'colum'의 앞글자를 의미한다고 외워두는 것이 편한면이 있다. 이유는 바로 위의 명령어 'a <- c(1,2,3)' 의 결과가 열벡터를 반환하기 때문이다.
+a 벡터의 결과값이 '[1] 1 2 3' 이라고 써져서 언뜻 보기에 옆으로 써져있는 행벡터
+$$
+a=\left(\begin{array}{ccc}
+1 & 2 & 3\end{array}\right)
+$$
+라고 생각하기 쉽지만, 사실은 위에 수식에서 보이는대로
+$$
+a=\left(\begin{array}{c}
+1\\
+2\\
+3
+\end{array}\right)
+$$
+이렇게 생긴 열벡터이다. 이 사실을 확인 하기 위해 트렌스포즈(transpose)를 취한 결과값을 살펴보자.
+```{r}
+t(a)
+```
+위에서 확인 할 수 있는 것처럼 옆으로 뉘어져있는 행벡터가 반환되는 것을 확인할 수 있다. 따라서 원래의 벡터 a는 열벡터라는 것을 알 수 있다.
+명령어 c()을 사용한 벡터가 열벡터라는 사실을 알아두면 좋은 이유가 행령 계산에 있어서 순서에 따라 전혀 다른 결과값을 반환하여 에러가 나는 경우가 생기기 때문이다.
+예를 들어, 벡터 a의 내적을 계산하기 위해서는
+$$
+a^{t}a=\left(\begin{array}{ccc}
+1 & 2 & 3\end{array}\right)\left(\begin{array}{c}
+1\\
+2\\
+3
+\end{array}\right)
+$$
+다음과 같은 R 코드를 입력해야 한다.
+```{r}
+t(a) %*% a
+```
+이 계산을 반대로 하게 된다면 아래와 같이 3 by 3 행렬을 반환하게 된다.
+$$
+aa^{t}=\left(\begin{array}{c}
+1\\
+2\\
+3
+\end{array}\right)\left(\begin{array}{ccc}
+1 & 2 & 3\end{array}\right)
+$$
+```{r}
+a %*% t(a)
+```
+
+이미 눈치챈 독자들도 있겠지만 R 명령어 %*%는 행렬의 곱을 계산할 때에 쓰이는 명령어이다. %기호를 사용하지 않은 곱셈의 경우는 다음 시간에 알아보도록 하겠다.
+
+<center>![사진출처:https://www.r-project.org/logo/](C:/Users/Sak/OneDrive/Documents/Blog/R programming/Rlogosmall.png)
+
+
+```{r bib, include=FALSE}
+# KEEP THIS AT THE END OF THE DOCUMENT TO GENERATE A LOCAL bib FILE FOR PKGS USED
+knitr::write_bib(sub("^package:", "", grep("package", search(), value=TRUE)), file='skeleton.bib')
+```
