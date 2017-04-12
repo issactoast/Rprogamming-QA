@@ -1,1 +1,1 @@
-# R-programming
+# R-programming 관련 질문과 답변 모음.
