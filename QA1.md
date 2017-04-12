@@ -1,15 +1,10 @@
 # QA.1
-Issac Lee  
-`r format(Sys.Date())`  
-
-
+Issac Lee
 
 ## Question
 안녕하세요. rbind() 혹은 bind_rows()를 사용하는 방법과 관련하여 질문드립니다.
 
 X 라는 임의의 데이터 프레임이 있을 때, X를 N번 생성하여 그것들을 행으로 합쳐 새로운 데이터 프레임 Y를 만드는 간편한 방법이 있는지 여쭈어보고 싶네요.
-
-
 
 ```r
 library(dplyr)
