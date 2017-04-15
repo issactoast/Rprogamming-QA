@@ -38,18 +38,31 @@ mysplit(x,3,median)
 
 
 ## Answer
-[Functional programming(FP)](http://adv-r.had.co.nz/Functional-programming.html)을 적용해서 짜기 좋은 상황이다. FP는 코드의 중복을 상당히 많이 줄일 수 있는 효율적인 코딩이 가능하다. 다음은 정수와 소수가 섞여있는 임의의 벡터를 발생한 후, 정수부분과 소수부분을 원하는 연산을 사용하여 각각 계산하는 함수를 만들어주는 함수을 만드는 방법이다.
+[Functional programming(FP)](http://adv-r.had.co.nz/Functional-programming.html)을 적용해서 짜기 좋은 상황이다. FP는 코드의 중복을 상당히 많이 줄일 수 있는 효율적인 코딩이 가능하다.
+
+다음은 정수와 소수가 섞여있는 임의의 벡터에 대하여, 정수부분과 소수부분을 원하는 연산을 사용하여 각각 계산하는 함수를 만들어주는 함수을 만드는 방법이다.
+
+### 임의의 벡터 발생
+
+```r
+# generate random vector
+n <- 10
+a <- sample(n, 2*n, replace = TRUE)
+r.index <- sample(2*n, n)
+a[r.index] <- a[r.index] + runif(n)
+a    
+```
+
+```
+##  [1]  5.000000  6.441381 10.000000  3.627415  6.570176  1.584750  4.000000
+##  [8]  4.370158 10.000000  1.786560  1.139639  5.922132  6.000000  3.000000
+## [15]  2.000000  5.000000  6.548045  2.000000  3.107371 10.000000
+```
 
 
 ```r
 mysplit <- function(f){
-  function(n){
-    # generate random vector
-    x <- sample(n, 2*n, replace = TRUE)
-    r.index <- sample(2*n, n)
-    x[r.index] <- x[r.index] + runif(n)
-    
-    # result
+  function(x){
     c(f(x[x %% 1 == 0]),
       f(x[x %% 1 != 0]))
   }
@@ -60,28 +73,28 @@ mysplit <- function(f){
 
 ```r
 mysplit.median <- mysplit(median)
-mysplit.median(10)
+mysplit.median(a)
 ```
 
 ```
-## [1] 6.000000 7.157343
+## [1] 5.000000 3.998786
 ```
 
 ```r
 mysplit.mean <- mysplit(mean)
-mysplit.mean(15)
+mysplit.mean(a)
 ```
 
 ```
-## [1] 9.600000 9.681047
+## [1] 5.700000 4.109763
 ```
 
 ```r
 mysplit.sum <- mysplit(sum)
-mysplit.sum(20)
+mysplit.sum(a)
 ```
 
 ```
-## [1] 238.0000 183.0659
+## [1] 57.00000 41.09763
 ```
 
